@@ -46,7 +46,7 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
     function draw() {
       orbitControl()
       noStroke();
-      flying -= 0.05;
+      flying -= 0.03;
       let yoff = flying;
       for (let y = 0; y < rows; y++) {
         let xoff = 0;
