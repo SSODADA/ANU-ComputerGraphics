@@ -5,6 +5,18 @@
 
 // Edited by SacrificeProductions
 // Modified by Dr. Jaechang Shim
+function setup() {
+  createCanvas(800, 800, WEBGL);
+  cols = w / scl;
+  rows = h / scl;
+
+  for (let x = 0; x < cols; x++) {
+    terrain[x] = [];
+    for (let y = 0; y < rows; y++) {
+      terrain[x][y] = 0; //specify a default value for now
+    }
+  }
+}
 
 let cols, rows;
 let scl = 20;
@@ -20,19 +32,6 @@ let shipY = 0;
 let flying = 0;
 
 let terrain = [];
-
-function setup() {
-  createCanvas(800, 800, WEBGL);
-  cols = w / scl;
-  rows = h / scl;
-
-  for (let x = 0; x < cols; x++) {
-    terrain[x] = [];
-    for (let y = 0; y < rows; y++) {
-      terrain[x][y] = 0; //specify a default value for now
-    }
-  }
-}
 
 function draw() {
   orbitControl()
