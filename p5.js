@@ -36,7 +36,7 @@ let terrain = [];
 function draw() {
   orbitControl()
   noStroke();
-  flying -= 0.05;
+  flying -= 0.03;
   let yoff = flying;
   for (let y = 0; y < rows; y++) {
     let xoff = 0;
