@@ -6,8 +6,14 @@
 noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도형을 만들어보고 여기에 재질과 조명을 넣는 이 과제를 수행하며 겪었던 어려움도 있었지만, 그 과정에서 문제를 해결하기 위해 다양한 접근 방식을 시도해보고, 필요한 지식을 찾아보며 학습하는 과정 자체가 매우 유익했습니다. 이를 통해 프로그래밍 능력뿐만 아니라, 독립적인 학습 능력과 문제 해결 능력도 함께 향상시킬 수 있었습니다. 앞으로도 이러한 경험을 바탕으로 더 많은 프로젝트에 도전하며, 계속해서 새로운 지식을 탐구하고 습득해 나가는 것이 중요하다고 생각들었습니다.
 
 ------------------------------------------------------------------------------
-### 과제 코드입니다
-------------------------------------------------------------------------------
+
+# 실행화면
+
+<img src="https://private-user-images.githubusercontent.com/80105027/320191325-f211dd53-2c40-4da3-8236-a1bae22ab091.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIzOTA3MzEsIm5iZiI6MTcxMjM5MDQzMSwicGF0aCI6Ii84MDEwNTAyNy8zMjAxOTEzMjUtZjIxMWRkNTMtMmM0MC00ZGEzLTgyMzYtYTFiYWUyMmFiMDkxLmdpZj9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA2VDA4MDAzMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWZkZWZiMGEwMWZlYTkyYTU3MGZkYWU0MTYzNDIxZDc2ZDNhNjc0NWNkN2M5ZjMxMTlmZDQxZWY0OTdkYzJlZjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.WeME6M7CJzkj5w76xwSuffUpO8mSjtBuPRB1qu7Vx2E">
+
+-----------------------------------------------------------------------------
+# 과제코드
+
     // Daniel Shiffman
     // http://codingtra.in
     // https://youtu.be/IKB1hWWedMk
@@ -68,13 +74,32 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
         }
         endShape();
       }
-      
-      
+    
+      // 배가 지형과 충돌하지 않도록 배의 높이를 조정하는 로직 추가
       for (let i = ships.length - 1; i >= 0; i--) {
+        let shipXIndex = floor(ships[i].x / scl);
+        let shipYIndex = floor(ships[i].y / scl);
+    
+        // 배의 x, y 위치에 해당하는 지형의 최대 높이를 찾습니다.
+        let maxHeight = terrain[shipXIndex][shipYIndex];
+        for (let dx = -1; dx <= 1; dx++) {
+          for (let dy = -1; dy <= 1; dy++) {
+            let nx = shipXIndex + dx;
+            let ny = shipYIndex + dy;
+            if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
+              maxHeight = max(maxHeight, terrain[nx][ny]);
+            }
+          }
+        }
+    
+        // 배의 z 위치를 조정하여 지형 위에 떠있도록 설정합니다.
+        let shipZ = maxHeight + 100; // 지형보다 100 높게 설정
+    
         push();
         translate(w / 2, h / 2);
-        translate(ships[i].x - width / 2, (ships[i].y - height / 2) * 1);
-        scale(0.2);
+        // 배의 x, y 위치를 조정하고, z 위치를 shipZ로 설정합니다.
+        translate(ships[i].x - width / 2, (ships[i].y - height / 2) * 1, shipZ);
+        scale(0.1);
         rotateX(-HALF_PI);
         let dirX = (mouseX / width - 0.5) * 2;
         let dirY = (mouseY / height - 0.5) * 2;
@@ -126,14 +151,11 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
     }
     
     function mousePressed() {
+      ships.push({x: mouseX, y: mouseY});
       if (!shipVisible) { 
         shipVisible = true;
         shipX = mouseX; 
         shipY = mouseY;
         shipStartY = shipY; 
       }
-    }
-    
-    function mousePressed() {
-      ships.push({x: mouseX, y: mouseY});
     }
