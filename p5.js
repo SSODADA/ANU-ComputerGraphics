@@ -58,13 +58,32 @@ function draw() {
     }
     endShape();
   }
-  
-  
+
+  // 배가 지형과 충돌하지 않도록 배의 높이를 조정하는 로직 추가
   for (let i = ships.length - 1; i >= 0; i--) {
+    let shipXIndex = floor(ships[i].x / scl);
+    let shipYIndex = floor(ships[i].y / scl);
+
+    // 배의 x, y 위치에 해당하는 지형의 최대 높이를 찾습니다.
+    let maxHeight = terrain[shipXIndex][shipYIndex];
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        let nx = shipXIndex + dx;
+        let ny = shipYIndex + dy;
+        if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
+          maxHeight = max(maxHeight, terrain[nx][ny]);
+        }
+      }
+    }
+
+    // 배의 z 위치를 조정하여 지형 위에 떠있도록 설정합니다.
+    let shipZ = maxHeight + 100; // 지형보다 100 높게 설정
+
     push();
     translate(w / 2, h / 2);
-    translate(ships[i].x - width / 2, (ships[i].y - height / 2) * 1);
-    scale(0.2);
+    // 배의 x, y 위치를 조정하고, z 위치를 shipZ로 설정합니다.
+    translate(ships[i].x - width / 2, (ships[i].y - height / 2) * 1, shipZ);
+    scale(0.1);
     rotateX(-HALF_PI);
     let dirX = (mouseX / width - 0.5) * 2;
     let dirY = (mouseY / height - 0.5) * 2;
@@ -116,14 +135,11 @@ function ship() {
 }
 
 function mousePressed() {
+  ships.push({x: mouseX, y: mouseY});
   if (!shipVisible) { 
     shipVisible = true;
     shipX = mouseX; 
     shipY = mouseY;
     shipStartY = shipY; 
   }
-}
-
-function mousePressed() {
-  ships.push({x: mouseX, y: mouseY});
 }
