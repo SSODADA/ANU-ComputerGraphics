@@ -9,7 +9,7 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
 
 # 실행화면
 
-<img src="https://private-user-images.githubusercontent.com/80105027/320191325-f211dd53-2c40-4da3-8236-a1bae22ab091.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTI2Mzc1MTgsIm5iZiI6MTcxMjYzNzIxOCwicGF0aCI6Ii84MDEwNTAyNy8zMjAxOTEzMjUtZjIxMWRkNTMtMmM0MC00ZGEzLTgyMzYtYTFiYWUyMmFiMDkxLmdpZj9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA5VDA0MzMzOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM0NDcxZThlNmI2ZjAxN2E2NTJlZjQyMDM2NmY1ZmM5NzYzMDAzMWNmYWNjNDhjOTFhZGZjOTAxY2FlMDAwZTgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.E7Txyh1RRt9miAuVMDj0EmHNH-gEgj4zJsaHxmHBrII">
+<img src="https://github.com/SSODADA/File/assets/80105027/f211dd53-2c40-4da3-8236-a1bae22ab091">
 
 -----------------------------------------------------------------------------
 # 과제코드
