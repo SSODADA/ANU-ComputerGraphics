@@ -9,7 +9,7 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
 
 # 실행화면
 
-<img src="https://github.com/SSODADA/File/assets/80105027/f211dd53-2c40-4da3-8236-a1bae22ab091">
+<img src="https://github.com/SSODADA/File/assets/80105027/54fe95d5-0c5b-4e78-b20a-944e6b92f7fb">
 
 -----------------------------------------------------------------------------
 # 과제코드
