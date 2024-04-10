@@ -35,19 +35,22 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
     }
     
     let cols, rows;
-    let scl = 20;
+    let scl = 50;
     let w = 1400;
-    let h = 1000;
+    let h = 1500;
     
     let ships = [];
     let shipVisible = false;
-    let shipSpeed = 2;
+    let shipSpeed = 1;
     let shipX = 0;
     let shipY = 0; 
     
     let flying = 0;
     
     let terrain = [];
+    
+    let sunX, sunY;
+    let dayTime = 0; 
     
     function draw() {
       orbitControl()
@@ -62,8 +65,17 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
         }
         yoff += 0.2;
       }
-      background(40, 208, 255);
-      rotateX(PI / 3);
+      let r = map(sin(dayTime), -1, 1, 0, 40);
+      let g = map(sin(dayTime), -1, 1, 0, 208);
+      let b = map(sin(dayTime), -1, 1, 100, 255);
+      background(r, g, b);
+      
+      dayTime += 0.005; 
+      if (dayTime > TWO_PI) { 
+        dayTime = 0;
+      }
+      
+      rotateX(PI / 2);
       fill(0, 128, 255, 150);
       translate(-w / 2, -h / 2);
       for (let y = 0; y < rows - 1; y++) {
@@ -74,30 +86,36 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
         }
         endShape();
       }
+      
+      sunX = map(sin(dayTime), -1, 1, -width, 2 * width);
+      sunY = map(cos(dayTime), -1, 1, 2 * height, -height);
+      
+      push();
+      translate(sunX, sunY);
+      fill(255, 204, 0);
+      sphere(50);
+      pop();
+      
+      
+        for (let i = ships.length - 1; i >= 0; i--) {
+      let shipXIndex = floor(ships[i].x / scl);
+      let shipYIndex = floor(ships[i].y / scl);
     
-      // 배가 지형과 충돌하지 않도록 배의 높이를 조정하는 로직 추가
-      for (let i = ships.length - 1; i >= 0; i--) {
-        let shipXIndex = floor(ships[i].x / scl);
-        let shipYIndex = floor(ships[i].y / scl);
-    
-        // 배의 x, y 위치에 해당하는 지형의 최대 높이를 찾습니다.
-        let maxHeight = terrain[shipXIndex][shipYIndex];
-        for (let dx = -1; dx <= 1; dx++) {
-          for (let dy = -1; dy <= 1; dy++) {
-            let nx = shipXIndex + dx;
-            let ny = shipYIndex + dy;
-            if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
-              maxHeight = max(maxHeight, terrain[nx][ny]);
-            }
+      let maxHeight = terrain[shipXIndex][shipYIndex];
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+          let nx = shipXIndex + dx;
+          let ny = shipYIndex + dy;
+          if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
+            maxHeight = max(maxHeight, terrain[nx][ny]);
           }
         }
+      }
     
-        // 배의 z 위치를 조정하여 지형 위에 떠있도록 설정합니다.
-        let shipZ = maxHeight + 100; // 지형보다 100 높게 설정
+      let shipZ = maxHeight + 10;  
     
         push();
         translate(w / 2, h / 2);
-        // 배의 x, y 위치를 조정하고, z 위치를 shipZ로 설정합니다.
         translate(ships[i].x - width / 2, (ships[i].y - height / 2) * 1, shipZ);
         scale(0.1);
         rotateX(-HALF_PI);
@@ -151,11 +169,14 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
     }
     
     function mousePressed() {
-      ships.push({x: mouseX, y: mouseY});
       if (!shipVisible) { 
         shipVisible = true;
         shipX = mouseX; 
         shipY = mouseY;
         shipStartY = shipY; 
       }
+    }
+    
+    function mousePressed() {
+      ships.push({x: mouseX, y: mouseY});
     }
