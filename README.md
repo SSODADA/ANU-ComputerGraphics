@@ -91,13 +91,14 @@ noise를 활용하여 지형이 만들어 지는게 신기하였고 또한 도�
       sunY = map(cos(dayTime), -1, 1, 2 * height, -height);
       
       push();
+      rotateY(-PI / 2);
       translate(sunX, sunY);
       fill(255, 204, 0);
       sphere(50);
       pop();
       
       
-        for (let i = ships.length - 1; i >= 0; i--) {
+      for (let i = ships.length - 1; i >= 0; i--) {
       let shipXIndex = floor(ships[i].x / scl);
       let shipYIndex = floor(ships[i].y / scl);
     
